@@ -1,38 +1,32 @@
-
-
-import react, { useState } from 'react'
-import Navbar from './component/Navbar/Navbar'
+import React, { useState } from 'react'
+import Navbar from './components/Navbar/Navbar'
+import Sidebar from './components/Sidebar/Sidebar'
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home/Home'
-import Cart from './pages/Cart/Cart'
-import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
-import Footer from './component/Footer/Footer'
-import LoginPopup from './component/LoginPopup/LoginPopup'
-import Varify from './pages/Verify/Verify';
-import MyOrders from './pages/MyOrders/MyOrders'
-
+import Add from './pages/Add/Add'
+import List from './pages/List/List'
+import Order from './pages/Orders/Order'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Orders from './pages/Orders/Order'
 const App = () => {
-  const[showLogin,setShowLogin]=useState(false)
+  
+  const url = "http://localhost:4000"
   return (
-    <>
-    { showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
-    <div className='app'>
-      <Navbar setShowLogin={setShowLogin}/>
-      <Routes>
-        < Route path='/' element={<Home/>} >
-        </Route>
-         < Route path='/Cart' element={<Cart/>} >
-        </Route>
-        
-           <Route path='/Order' element={<PlaceOrder/>}>
-        </Route>
-        <Route path='/Verify' element={<Varify/>}></Route>
-        <Route path='/myorders' element={<MyOrders/>}></Route>
+    <div>
+      <ToastContainer/>
+      <Navbar/>
+      <hr/>
+      <div className='app-content'>
+        <Sidebar/>
+        <Routes>
+          
+          <Route path="/add" element={<Add url={url}/>}/>
+           <Route path="/list" element={<List url={url}/>}/>
+            <Route path="/order" element={<Orders url={url}/>}/>
         </Routes>
+      </div>
     </div>
-    <Footer/>
-    </>
   )
 }
 
-export default App;
+export default App
